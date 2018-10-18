@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "accumulate.h"
+#include "request.h"
 
 int main() {
     int fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -47,6 +48,12 @@ int main() {
     }
 
     printf("What we have got is stream of length %d with the following contents:\n%s\n", length, stream);
+
+    Request* request = request_parse(stream, length);
+    if (request == NULL) {
+        int error = errno;
+        printf("Request parsing error: %d", error);
+    }
 
     printf("pwogwam end\n");
 }
