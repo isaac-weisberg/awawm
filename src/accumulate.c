@@ -21,3 +21,7 @@ int accumulate_stream(const int fd, char** stream_ptr, int* length_ptr) {
     *length_ptr = offset;
     return 0;
 }
+
+int dump_stream(const int fd, char* stream_ptr, int length_ptr) {
+    return -1;
+}

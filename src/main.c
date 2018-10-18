@@ -73,7 +73,11 @@ int main() {
         printf("Response serialization error: %d\n", error);
     }
 
-    /* Dump response stream to the connection. */
+    int streamWriteResult = dump_stream(connfd, responseStream, responseLength);
+    if (streamWriteResult != 0) {
+        int error = errno;
+        printf("Response stream write error: %d\n", error);
+    }
 
     int connCloseResult = close(connfd);
     if (connCloseResult != 0) {
