@@ -7,6 +7,7 @@ CCFLAGS=
 EXEC=bin/a.out
 OBJECTS=src/main.o \
 	src/accumulate.o \
+	src/request.o
 	 
 default: run
 
