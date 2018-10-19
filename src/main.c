@@ -37,29 +37,19 @@ int main() {
     int connfd = accept(fd, NULL, NULL);
     if (connfd == -1) {
         int error = errno;
-        printf("Conenction accept error: %d\n", error);
+        printf("Connection accept error: %d\n", error);
     }
 
-
-    char* stream;
-    int length;
-    int accumulationRes = accumulate_stream(connfd, &stream, &length);
+    Request request;
+    int accumulationRes = accumulate_request(connfd, &request);
     if (accumulationRes == -1) {
         int error = errno;
-        printf("Stream accumulation error: %d\n", error);
-    }
-
-    printf("What we have got is stream of length %d with the following contents:\n%s\n", length, stream);
-
-    Request* request = request_parse(stream, length);
-    if (request == NULL) {
-        int error = errno;
-        printf("Request parsing error: %d\n", error);
+        printf("Request accumulation error: %d\n", error);
     }
 
     Response response;
 
-    int routingResult = route(request, &response);
+    int routingResult = route(&request, &response);
     if (routingResult != 0) {
         int error = errno;
         printf("Routing error: %d\n", error);
